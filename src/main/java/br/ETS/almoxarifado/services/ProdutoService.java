@@ -1,15 +1,25 @@
 package br.ETS.almoxarifado.services;
 
+import br.ETS.almoxarifado.ProdutoDAO;
 import br.ETS.almoxarifado.RegraAplicacaoException;
+import br.ETS.almoxarifado.connection.ConnectionFactory;
 import br.ETS.almoxarifado.dto.DadosProdutoDTO;
 import br.ETS.almoxarifado.entity.Produto;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 
 public class ProdutoService {
 
     // criação da Lista de produtos do tipo Produto(entidade)
     private ArrayList<Produto> produtos = new ArrayList<>();
+
+    private ConnectionFactory connectionFactory;
+
+    public ProdutoService(){
+        this.connectionFactory = new ConnectionFactory();
+    }
+
 
     // método de adição de produtos
     public void adicionarNovoProduto(DadosProdutoDTO dadosProdutoDTO){
@@ -18,12 +28,15 @@ public class ProdutoService {
         if (produtos.contains(produto)){
             throw new RegraAplicacaoException("Já existe um produto com esse ID");
         }
-        produtos.add(produto);
+
+        Connection connection = connectionFactory.recuperarConexao();
+        new ProdutoDAO(connection).salvar(dadosProdutoDTO);
     }
 
     //método para exibir a lista de produtos do almoxarifado
     public ArrayList<Produto> exibirProdutosAlmoxarifado(){
-        return produtos;
+        Connection connection = connectionFactory.recuperarConexao();
+        return new ProdutoDAO(connection).listar();
     }
 
     // primeira forma de encontrar o produto pelo id
@@ -39,12 +52,14 @@ public class ProdutoService {
     // segunda forma de encontrar o produto pelo id
     // o .stream que foi usado serve par manipular arrays, o filter para filtrar a partir de um parâmetro
     public Produto encontrarProdutoPeloID(int id){
-        return produtos
-                .stream()
-                .filter(produto -> produto.getId() == id)
-                .findFirst()
-                .orElseThrow( () -> new RegraAplicacaoException("O produto com este ID não foi encontrado") );
+        Connection connection = connectionFactory.recuperarConexao();
+        Produto produto = new ProdutoDAO(connection).listarPorID(id);
 
+        if (produto != null){
+            return produto;
+        } else {
+            throw new RegraAplicacaoException("Não existe produto com este ID");
+        }
     }
 
     // Atualizar a quantidade de produtos (adicionar + produtos)
