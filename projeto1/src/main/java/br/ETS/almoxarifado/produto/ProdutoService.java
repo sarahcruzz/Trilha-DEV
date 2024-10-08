@@ -1,10 +1,7 @@
-package br.ETS.almoxarifado.services;
+package br.ETS.almoxarifado.produto;
 
-import br.ETS.almoxarifado.ProdutoDAO;
 import br.ETS.almoxarifado.RegraAplicacaoException;
 import br.ETS.almoxarifado.connection.ConnectionFactory;
-import br.ETS.almoxarifado.dto.DadosProdutoDTO;
-import br.ETS.almoxarifado.entity.Produto;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -69,7 +66,9 @@ public class ProdutoService {
         if (quantidade <= 0){
             throw new RegraAplicacaoException("Quantidade a ser adicionada deve ser maior que zero");
         }
-        produto.setQuantidade(produto.getQuantidade() + quantidade);
+
+        Connection connection = connectionFactory.recuperarConexao();
+        new ProdutoDAO(connection).alterar(produto.getId(), produto.getQuantidade() + quantidade);
     }
 
     // Atualizar a quantidade de produtos (subtrair produtos)
@@ -81,14 +80,19 @@ public class ProdutoService {
         } else if (quantidade > produto.getQuantidade()) {
             throw new RegraAplicacaoException("A quantidade a ser removida não pode ser maior que a quantidade atual do estoque");
         }
-        produto.setQuantidade(produto.getQuantidade() - quantidade);
+
+        Connection connection = connectionFactory.recuperarConexao();
+        new ProdutoDAO(connection).alterar(produto.getId(), produto.getQuantidade() - quantidade);
     }
 
     // Remoção do produto por id da lista de produtos
     public void removerProdutoAlmoxarifado(int id){
-        var produto = encontrarProdutoPeloID(id);
-
-        produtos.remove(produto);
+        if (encontrarProdutoPeloID(id) != null){
+            Connection connection = connectionFactory.recuperarConexao();
+            new ProdutoDAO(connection).deletar(id);
+        } else {
+            throw new RegraAplicacaoException("Não foi encontrado produto com esse ID");
+        }
     }
 
 

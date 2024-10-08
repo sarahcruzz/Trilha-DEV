@@ -1,14 +1,13 @@
 package br.ETS.almoxarifado;
 
-import br.ETS.almoxarifado.dto.DadosProdutoDTO;
-import br.ETS.almoxarifado.services.ProdutoService;
-import org.springframework.boot.SpringApplication;
+import br.ETS.almoxarifado.produto.DadosProdutoDTO;
+import br.ETS.almoxarifado.produto.ProdutoService;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.Scanner;
 
 @SpringBootApplication
-public class AlmoxarifadoApplication {
+public class Main {
 	private static ProdutoService produtoService = new ProdutoService();
 	private static Scanner scanner = new Scanner(System.in);
 	private static int exibirMenu(){
@@ -22,8 +21,7 @@ public class AlmoxarifadoApplication {
 							5 - Remover um produto do almoxarifado
 							6 - Encerrar aplicação
 							
-							R:
-    			
+							R:    		\t
 							""");
 		return Integer.parseInt(scanner.nextLine());
 	}
@@ -34,7 +32,7 @@ public class AlmoxarifadoApplication {
 		while(opcao != 6){
 			try{
 				switch (opcao){
-					case 1 -> adicionatrNovoProduto();
+					case 1 -> adicionarNovoProduto();
 					case 2 -> exibirProdutosCadastrados();
 					case 3 -> adicionarQuantidadeProduto();
 					case 4 -> removerQuantidadeProduto();
@@ -50,7 +48,7 @@ public class AlmoxarifadoApplication {
 
 	}
 
-	private static void adicionatrNovoProduto(){
+	private static void adicionarNovoProduto(){
 		System.out.println("Insira o ID do produto que deseja cadastrar: ");
 		var id = Integer.parseInt(scanner.nextLine());
 
@@ -71,6 +69,7 @@ public class AlmoxarifadoApplication {
 	}
 
 	private static void exibirProdutosCadastrados(){
+		System.out.println("Os produtos cadastrados são: ");
 		var produtos = produtoService.exibirProdutosAlmoxarifado();
 		produtos.forEach(System.out::println);
 		System.out.println("Pressione ENTER para voltar ao menu principal...");
@@ -85,6 +84,7 @@ public class AlmoxarifadoApplication {
 		var quantidade = Integer.parseInt(scanner.nextLine());
 
 		produtoService.adicionarQuantidadeProduto(id, quantidade);
+		System.out.printf("\nA quantidade de %d foi adicionada ao produto com ID %d", quantidade, id);
 		System.out.println("Pressione ENTER para voltar ao menu principal...");
 		scanner.nextLine();
 	}
@@ -97,6 +97,7 @@ public class AlmoxarifadoApplication {
 		var quantidade = Integer.parseInt(scanner.nextLine());
 
 		produtoService.removerQuantidadeProduto(id, quantidade);
+		System.out.printf("\nA quantidade de %d foi removida do produto com ID %d", quantidade, id);
 		System.out.println("Pressione ENTER para voltar ao menu principal...");
 		scanner.nextLine();
 	}
@@ -106,6 +107,7 @@ public class AlmoxarifadoApplication {
 		var id  = Integer.parseInt(scanner.nextLine());
 
 		produtoService.removerProdutoAlmoxarifado(id);
+		System.out.printf("\nO produto com ID %d foi removido com sucesso!", id);
 		System.out.println("Pressione ENTER para voltar ao menu principal...");
 		scanner.nextLine();
 	}

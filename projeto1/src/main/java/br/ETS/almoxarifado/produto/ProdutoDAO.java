@@ -1,7 +1,4 @@
-package br.ETS.almoxarifado;
-
-import br.ETS.almoxarifado.dto.DadosProdutoDTO;
-import br.ETS.almoxarifado.entity.Produto;
+package br.ETS.almoxarifado.produto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -104,7 +101,39 @@ public class ProdutoDAO {
 
     //método que vai servir para alterar a quantidade (remover ou adicionar)
     public void alterar(int id, int quantidade){
+        PreparedStatement preparedStatement;
+        String sql = "UPDATE tbmateriaisdiretos SET quantidade = ? WHERE id = ?";
 
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, quantidade);
+            preparedStatement.setInt(2, id);
+
+            preparedStatement.execute();
+
+            preparedStatement.close();
+            connection.close();
+
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
     }
+
+    public void deletar(int id){
+        String sql = "DELETE FROM tbmateriaisdiretos WHERE id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+
+            preparedStatement.execute();
+
+            preparedStatement.close();
+            connection.close();
+
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }

@@ -1,6 +1,4 @@
-package br.ETS.almoxarifado.entity;
-
-import br.ETS.almoxarifado.dto.DadosProdutoDTO;
+package br.ETS.almoxarifado.produto;
 
 import java.util.Objects;
 

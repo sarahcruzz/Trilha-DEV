@@ -1,4 +1,4 @@
-package br.ETS.almoxarifado.dto;
+package br.ETS.almoxarifado.produto;
 
 public record DadosProdutoDTO(
         int id,
