@@ -1,6 +1,7 @@
 package br.ETS.hibernate;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "TbMateriaisIndiretos")
@@ -10,6 +11,10 @@ public class Material {
         this.nome = materialDTO.nome();
         this.fornecedor = materialDTO.fornecedor();
         this.quantidade = materialDTO.quantidade();
+        this.categoria = materialDTO.categoria();
+    }
+    public Material(){
+
     }
 
     // atributos da entidade
@@ -20,6 +25,9 @@ public class Material {
     @Column(name = "forn")
     private String fornecedor;
     private int quantidade;
+    private LocalDate dataCadastro = LocalDate.now();
+    @ManyToOne
+    private Categoria categoria;
 
     // getter e setter
     public int getId() {
