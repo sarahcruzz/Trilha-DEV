@@ -4,6 +4,6 @@ public record DadosInformacoes(
         String disciplina,
         String trilha,
         String faculdade,
-        String curso
+        String turma
 ) {
 }
