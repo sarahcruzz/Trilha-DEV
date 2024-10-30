@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @EqualsAndHashCode()
 @Entity(name = "Instrutor")
-@Table(name = "tbInstrutores")
+@Table(name = "tb_instrutores")
 public class Instrutor {
     // atributos
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,12 +26,17 @@ public class Instrutor {
     @Embedded
     private Informacoes informacoes;
 
+    private Boolean ferias;
+
     public Instrutor(DadosCadastroInstrutor dadosCadastroInstrutor){
         this.nome = dadosCadastroInstrutor.nome();
         this.email = dadosCadastroInstrutor.email();
         this.edv = dadosCadastroInstrutor.edv();
         this.curso = dadosCadastroInstrutor.curso();
-        this.informacoes = new Informacoes(dadosCadastroInstrutor.dadosInformacoes());
+
+        this.informacoes = new Informacoes(dadosCadastroInstrutor.informacoes());
+
+        this.ferias = dadosCadastroInstrutor.ferias();
     }
 
 

@@ -1,12 +1,13 @@
-create table tbinstrutores(
-    id bigint not null auto_increment,
-    nome varchar(100) not null,
-    email varchar(100) not null,
-    edv varchar(100) not null,
-    curso varchar(100) not null,
-    disciplina varchar(100) not null,
-    trilha varchar(100) not null,
-    faculdade varchar(100) not null,
-    turma varchar(100) not null,
-    primary key(id)
-);
+create table tb_instrutores (
+    id integer not null auto_increment,
+    disciplina varchar(255),
+    edv varchar(255),
+    email varchar(255),
+    faculdade varchar(255),
+    nome varchar(255),
+    trilha varchar(255),
+    turma varchar(255),
+    curso enum ('ADM','DS','MANUFATURA','MECATRONICA'),
+    primary key (id)
+
+) engine=InnoDB;
