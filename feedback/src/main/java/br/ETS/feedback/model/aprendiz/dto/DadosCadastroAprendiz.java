@@ -1,13 +1,14 @@
-package br.ETS.feedback.instrutor.dto;
+package br.ETS.feedback.model.aprendiz.dto;
 
-import br.ETS.feedback.instrutor.Curso;
+import br.ETS.feedback.model.Curso;
+import br.ETS.feedback.model.instrutor.dto.DadosInformacoes;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
-public record DadosCadastroInstrutor(
+public record DadosCadastroAprendiz(
         @NotBlank
         String nome,
         @NotBlank @Email
@@ -20,5 +21,6 @@ public record DadosCadastroInstrutor(
         DadosInformacoes informacoes,
         @NotNull
         Boolean ferias
+
 ) {
 }

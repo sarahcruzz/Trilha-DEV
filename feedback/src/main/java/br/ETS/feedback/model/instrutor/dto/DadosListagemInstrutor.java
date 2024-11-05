@@ -1,7 +1,7 @@
-package br.ETS.feedback.instrutor.dto;
+package br.ETS.feedback.model.instrutor.dto;
 
-import br.ETS.feedback.instrutor.Curso;
-import br.ETS.feedback.instrutor.Instrutor;
+import br.ETS.feedback.model.Curso;
+import br.ETS.feedback.model.instrutor.Instrutor;
 
 public record DadosListagemInstrutor(
         String nome,

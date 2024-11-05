@@ -1,11 +1,8 @@
-package br.ETS.feedback.instrutor.dto;
+package br.ETS.feedback.model.aprendiz.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record DadosInformacoes(
-
-        @NotBlank
-        String disciplina,
+public record DadosInformacoesAprendiz(
         @NotBlank
         String trilha,
 

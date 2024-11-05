@@ -1,8 +1,9 @@
-package br.ETS.feedback.instrutor;
+package br.ETS.feedback.model.instrutor;
 
-import br.ETS.feedback.informacoes.Informacoes;
-import br.ETS.feedback.instrutor.dto.DadosAtualizacaoInstrutor;
-import br.ETS.feedback.instrutor.dto.DadosCadastroInstrutor;
+import br.ETS.feedback.model.Curso;
+import br.ETS.feedback.model.informacoes.Informacoes;
+import br.ETS.feedback.model.instrutor.dto.DadosAtualizacaoInstrutor;
+import br.ETS.feedback.model.instrutor.dto.DadosCadastroInstrutor;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,6 +29,7 @@ public class Instrutor {
     private Informacoes informacoes;
 
     private Boolean ferias;
+    private boolean ativo;
 
     public Instrutor(DadosCadastroInstrutor dadosCadastroInstrutor){
         this.nome = dadosCadastroInstrutor.nome();
@@ -38,6 +40,7 @@ public class Instrutor {
         this.informacoes = new Informacoes(dadosCadastroInstrutor.informacoes());
 
         this.ferias = dadosCadastroInstrutor.ferias();
+        this.ativo=true;
     }
 
     public void atualizar(DadosAtualizacaoInstrutor dadosAtualizacaoInstrutor){
@@ -65,8 +68,10 @@ public class Instrutor {
             this.informacoes.atualizar(dadosAtualizacaoInstrutor.informacoes());
         }
 
+    }
 
-
+    public void excluir(){
+        this.ativo = false;
     }
 
 }

@@ -1,4 +1,4 @@
-package br.ETS.feedback.instrutor;
+package br.ETS.feedback.model;
 
 public enum Curso {
     DS,
