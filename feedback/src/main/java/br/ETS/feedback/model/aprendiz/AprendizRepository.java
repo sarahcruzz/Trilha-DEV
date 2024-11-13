@@ -1,9 +1,10 @@
-package br.ETS.feedback.model.aprendiz;
+package br.ETS.Feedback.model.aprendiz;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AprendizRepository extends JpaRepository<Aprendiz, Integer> {
+public interface AprendizRepository extends JpaRepository<Aprendiz,Integer> {
+
     Page<Aprendiz> findAllByAtivoTrue(Pageable pageable);
 }

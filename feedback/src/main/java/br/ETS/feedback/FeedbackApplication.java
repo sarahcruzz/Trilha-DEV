@@ -1,4 +1,4 @@
-package br.ETS.feedback;
+package br.ETS.Feedback;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

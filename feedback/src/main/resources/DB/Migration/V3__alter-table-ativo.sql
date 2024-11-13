@@ -1,2 +1,1 @@
- alter table tb_instrutores
-       add column ativo bit;
+alter table tbinstrutores add column ativo bit not null;

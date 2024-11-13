@@ -1,9 +1,9 @@
-package br.ETS.feedback.model.aprendiz;
+package br.ETS.Feedback.model.aprendiz;
 
-import br.ETS.feedback.model.Curso;
-import br.ETS.feedback.model.aprendiz.dto.DadosAtualizacaoAprendiz;
-import br.ETS.feedback.model.aprendiz.dto.DadosCadastroAprendiz;
-import br.ETS.feedback.model.informacoes.Informacoes;
+import br.ETS.Feedback.model.Curso;
+import br.ETS.Feedback.model.aprendiz.DTO.DadosAtualizacaoAprendiz;
+import br.ETS.Feedback.model.aprendiz.DTO.DadosCadastroAprendiz;
+import br.ETS.Feedback.model.aprendiz.informacoes.Informacoes;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,17 +11,18 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode()
+@EqualsAndHashCode(of = "id")
+
 @Entity(name = "Aprendiz")
-@Table(name = "tb_aprendizes")
+@Table(name = "tbaprendizes")
 public class Aprendiz {
-    // atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nome;
     private String email;
     private String edv;
+    private boolean ferias;
 
     @Enumerated(EnumType.STRING)
     private Curso curso;
@@ -29,11 +30,10 @@ public class Aprendiz {
     @Embedded
     private Informacoes informacoes;
 
-    private Boolean ferias;
     private boolean ativo;
 
 
-    public Aprendiz(DadosCadastroAprendiz dadosCadastroAprendiz){
+    public Aprendiz(DadosCadastroAprendiz dadosCadastroAprendiz) {
         this.nome = dadosCadastroAprendiz.nome();
         this.email = dadosCadastroAprendiz.email();
         this.edv = dadosCadastroAprendiz.edv();
@@ -41,41 +41,32 @@ public class Aprendiz {
         this.informacoes = new Informacoes(dadosCadastroAprendiz.informacoes());
         this.ferias = dadosCadastroAprendiz.ferias();
         this.ativo = true;
+
     }
 
-    public void atualizar(DadosAtualizacaoAprendiz dadosAtualizacaoAprendiz){
-        if (dadosAtualizacaoAprendiz.nome() != null){
+    public void atualizar(DadosAtualizacaoAprendiz dadosAtualizacaoAprendiz) {
+        if (dadosAtualizacaoAprendiz.nome() != null) {
             this.nome = dadosAtualizacaoAprendiz.nome();
         }
-
-        if (dadosAtualizacaoAprendiz.email() != null){
+        if (dadosAtualizacaoAprendiz.email() != null) {
             this.email = dadosAtualizacaoAprendiz.email();
         }
-
-        if (dadosAtualizacaoAprendiz.edv() != null){
+        if (dadosAtualizacaoAprendiz.edv() != null) {
             this.edv = dadosAtualizacaoAprendiz.edv();
         }
-
-        if (dadosAtualizacaoAprendiz.curso() != null){
+        if (dadosAtualizacaoAprendiz.curso() != null) {
             this.curso = dadosAtualizacaoAprendiz.curso();
         }
 
-        if (dadosAtualizacaoAprendiz.ferias() != null){
-            this.ferias = dadosAtualizacaoAprendiz.ferias();
-        }
+        this.ferias = dadosAtualizacaoAprendiz.ferias();
 
-        if (dadosAtualizacaoAprendiz.informacoes() != null){
-            this.informacoes.atualizarAprendiz(dadosAtualizacaoAprendiz.informacoes());
+        if (dadosAtualizacaoAprendiz.informacoes() != null) {
+            this.informacoes.atualizar(dadosAtualizacaoAprendiz.informacoes());
         }
-
     }
 
     public void excluir(){
         this.ativo = false;
     }
-
-
-
-
 
 }

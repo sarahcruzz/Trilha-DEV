@@ -1,1 +1,1 @@
-alter table tb_instrutores add column ferias bit;
+alter table tbinstrutores add column ferias bit;

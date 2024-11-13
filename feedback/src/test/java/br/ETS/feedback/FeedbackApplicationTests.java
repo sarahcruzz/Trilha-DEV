@@ -1,4 +1,4 @@
-package br.ETS.feedback;
+package br.ETS.Feedback;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
